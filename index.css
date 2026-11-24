@@ -1,27 +1,307 @@
+:root {
+  --soil: #1f1b16;
+  --kraft: #d9c49c;
+  --kraft-dark: #c3ad84;
+  --parchment: #f2e6cf;
+  --ink: #2b2420;
+  --ink-soft: rgba(43, 36, 32, 0.68);
+  --barn: #c1442d;
+  --moss: #4f6b4a;
+  --mustard: #d9a440;
+
+  --font-display: "Alfa Slab One", "Georgia", serif;
+  --font-body: "Work Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Space Mono", "Courier New", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
-  text-align: center;
-  background: tan;
 }
 
-.emoji-flower-bed {
-  width: 70%;
-  min-height: 60vh;
-  margin: auto;
-  margin-top: 2em;
-  padding-left: 0;
-  border: 10px solid green;
+body {
+  min-height: 100vh;
+  background: var(--soil);
+  background-image: radial-gradient(ellipse at 50% 0%, rgba(217, 164, 64, 0.08), transparent 55%);
+  font-family: var(--font-body);
+  color: var(--ink);
+  display: flex;
+  justify-content: center;
+  padding: clamp(20px, 5vw, 56px) 16px;
+}
+
+*:focus-visible {
+  outline: 3px solid var(--mustard);
+  outline-offset: 3px;
+}
+
+.plot {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  background: var(--kraft);
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  padding: clamp(28px, 5vw, 56px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+
+.plot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, rgba(43, 36, 32, 0.07) 1px, transparent 0);
+  background-size: 7px 7px;
+}
+
+.plot-header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.seal {
+  width: 104px;
+  height: 104px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: var(--mustard);
+  border: 2px solid var(--ink);
+  transform: rotate(-7deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-family: var(--font-mono);
+  color: var(--ink);
+  line-height: 1;
+}
+
+.seal-top {
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+.seal-year {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  letter-spacing: 0.02em;
+}
+
+.seal-bottom {
+  font-size: 0.4rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0 10px;
+}
+
+.plot-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 5.5vw, 3.2rem);
+  letter-spacing: 0.01em;
+  margin: 0 0 14px;
+  color: var(--ink);
+}
+
+.plot-sub {
+  font-style: italic;
+  font-size: clamp(0.9rem, 1.6vw, 1.05rem);
+  color: var(--ink-soft);
+  max-width: 46ch;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.bed {
+  --accent: var(--ink);
+  margin-top: 36px;
+}
+
+.bed[data-bed="bugs"] {
+  --accent: var(--barn);
+}
+
+.bed[data-bed="flowers"] {
+  --accent: var(--moss);
+}
+
+.bed-rule {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.bed-rule::before,
+.bed-rule::after {
+  content: "";
+  flex: 1;
+  border-top: 2px dashed var(--accent);
+  opacity: 0.55;
+}
+
+.bed-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.bed-row {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 26px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  background-color: lightgreen;
-  padding: 1em;
-  border-radius: 5px;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 26px 18px;
+  min-height: 118px;
+  border-bottom: 3px solid var(--kraft-dark);
 }
-.emoji-flower-bed li {
-  list-style-type: none;
-  font-size: 2.5em;
-  padding: 2px;
+
+.marker {
+  width: 108px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: sprout 0.5s ease both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+.marker-tag {
+  width: 100%;
+  background: var(--parchment);
+  border: 2px solid var(--ink);
+  border-top: 5px solid var(--accent);
+  border-radius: 6px 6px 0 0;
+  clip-path: polygon(0 0, 100% 0, 100% 66%, 50% 100%, 0 66%);
+  padding: 14px 6px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  transform-origin: 50% 0%;
+}
+
+.marker:nth-child(odd) .marker-tag {
+  --tilt: -4deg;
+}
+
+.marker:nth-child(even) .marker-tag {
+  --tilt: 4deg;
+}
+
+.marker:hover .marker-tag {
+  transform: translateY(-5px) rotate(var(--tilt));
+  box-shadow: 3px 7px 0 rgba(43, 36, 32, 0.25);
+}
+
+.marker-emoji {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.marker-name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 0.56rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.marker-code {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  color: var(--ink-soft);
+}
+
+.marker-stake {
+  width: 3px;
+  height: 20px;
+  background: var(--ink);
+  margin-top: -2px;
+}
+
+.plot-status {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin: 30px 0 0;
+}
+
+.plot-status.is-error {
+  color: var(--barn);
+  font-weight: 700;
+}
+
+.plot-footer {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  margin-top: 18px;
+}
+
+.plot-footer .dot {
+  margin: 0 8px;
+}
+
+@keyframes sprout {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .marker,
+  .marker-tag {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .marker:hover .marker-tag {
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .marker {
+    width: 86px;
+  }
+
+  .marker-emoji {
+    font-size: 1.6rem;
+  }
+
+  .seal {
+    width: 88px;
+    height: 88px;
+  }
 }

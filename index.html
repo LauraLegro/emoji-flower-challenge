@@ -2,13 +2,56 @@
 <html lang="en">
 
 <head>
-    <title>Document</title>
-    <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Garden Bed</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Space+Mono:wght@400;700&family=Work+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
-    <ul class="emoji-flower-bed"></ul>
-    <script src="index.js"></script>
+  <main class="plot">
+    <header class="plot-header">
+      <div class="seal" aria-hidden="true">
+        <span class="seal-top">EST.</span>
+        <span class="seal-year" id="seal-year">----</span>
+        <span class="seal-bottom">pollinator&nbsp;approved</span>
+      </div>
+
+      <h1 class="plot-title">The Garden Bed</h1>
+      <p class="plot-sub">
+        Cleared of mammals, trees &amp; leaves — bugs and blossoms only, guaranteed true to type.
+      </p>
+    </header>
+
+    <section class="bed" data-bed="bugs" aria-labelledby="bugs-heading">
+      <div class="bed-rule">
+        <span class="bed-label" id="bugs-heading">Bed No. 1 — Bugs</span>
+      </div>
+      <ul class="bed-row" id="bugs-row"></ul>
+    </section>
+
+    <section class="bed" data-bed="flowers" aria-labelledby="flowers-heading">
+      <div class="bed-rule">
+        <span class="bed-label" id="flowers-heading">Bed No. 2 — Flowers</span>
+      </div>
+      <ul class="bed-row" id="flowers-row"></ul>
+    </section>
+
+    <p class="plot-status" id="status" role="status">Planting the bed…</p>
+
+    <footer class="plot-footer">
+      <span>Stock fetched live from emojihub</span>
+      <span class="dot" aria-hidden="true">·</span>
+      <span>Refreshes on reload</span>
+    </footer>
+  </main>
+
+  <script src="index.js"></script>
 </body>
 
 </html>
